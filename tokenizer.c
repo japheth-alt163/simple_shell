@@ -5,26 +5,17 @@
 #include <sys/wait.h>
 
 #define MAX_INPUT_SIZE 1024
+#define MAX_ARG_COUNT 32
 
-/**
- * display_prompt - to desplay the prompt entered
- */
+/* Display the shell prompt. */
 void display_prompt(void)
 {
 	printf("#cisfun$ ");
 	fflush(stdout);
 }
 
-/**
- * execute_command - Execute the given command in a child process
- *
- * This function takes a command as input and executes it in a child process.
- * The 'command' parameter should be a null-terminated string containing the
- * command to be executed.
- *
- * @parameter  command The command to execute.
- */
-void execute_command(const char *command)
+/* Execute the given command with arguments in a child process. */
+void execute_command(char *command, char *args[])
 {
 	pid_t child_pid = fork();
 
@@ -35,9 +26,9 @@ void execute_command(const char *command)
 	else if (child_pid == 0)
 	{
 		/* This code is executed by the child process */
-		if (execlp(command, command, NULL) == -1)
+		if (execvp(command, args) == -1)
 		{
-			perror("execlp");
+			perror("execvp");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -57,13 +48,16 @@ void execute_command(const char *command)
  * main - Entry point of the simple shell program.
  *
  * This function reads user commands, displays a prompt,
- * and executes the provided commands in child processes.
+ * and executes the provided commands with arguments in child processes.
  *
  * Return: EXIT_SUCCESS on success, or EXIT_FAILURE on failure.
  */
 int main(void)
 {
 	char input[MAX_INPUT_SIZE];
+        char *args[MAX_ARG_COUNT];
+        int arg_count = 0;
+        char *token;
 
 	while (1)
 	{
@@ -84,7 +78,21 @@ int main(void)
 			continue; /* Empty input, prompt again */
 		}
 
-		execute_command(input);
+		/* Tokenize the input to separate command and arguments */
+         	arg_count = 0;
+		token = strtok(input, " ");
+
+		while (token != NULL)
+		{
+			args[arg_count++] = token;
+			token = strtok(NULL, " ");
+		}
+		args[arg_count] = NULL;
+
+		if (arg_count > 0)
+		{
+			execute_command(args[0], args);
+		}
 	}
 
 	return (EXIT_SUCCESS);
