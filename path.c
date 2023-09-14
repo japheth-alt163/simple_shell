@@ -7,18 +7,50 @@
 #define MAX_INPUT_SIZE 1024
 #define MAX_ARG_COUNT 32
 
-/* Rename display_prompt to tokenizer_display_prompt */
-void tokenizer_display_prompt(void)
+/* Display the shell prompt. */
+void path_display_prompt(void)
 {
-    printf("#cisfun$ ");
+    printf(":) ");
     fflush(stdout);
 }
 
-/* Rename execute_command to tokenizer_execute_command */
-void tokenizer_execute_command(char *command, char *args[])
+/* Check if a command exists in the PATH. */
+int command_exists(const char *command)
+{
+    char *path_env = getenv("PATH");
+    char *path_copy = strdup(path_env);
+    char *path_token = strtok(path_copy, ":");
+
+    while (path_token)
+    {
+        char command_path[MAX_INPUT_SIZE];
+        snprintf(command_path, sizeof(command_path), "%s/%s", path_token, command);
+
+        if (access(command_path, X_OK) == 0)
+        {
+            free(path_copy);
+            return 1;
+        }
+
+        path_token = strtok(NULL, ":");
+    }
+
+    free(path_copy);
+    return 0;
+}
+
+/* Execute the given command with arguments in a child process. */
+void path_execute_command(char *command, char *args[])
 {
     pid_t child_pid = fork();
 
+    if (!command_exists(command))
+    {
+        printf("%s: command not found\n", command);
+        return;
+    }
+
+    
     if (child_pid == -1)
     {
         perror("fork");
@@ -44,7 +76,7 @@ void tokenizer_execute_command(char *command, char *args[])
     }
 }
 
-int tokenizer_main(void)
+int path_main(void)
 {
     char input[MAX_INPUT_SIZE];
     char *args[MAX_ARG_COUNT];
@@ -53,7 +85,7 @@ int tokenizer_main(void)
 
     while (1)
     {
-        tokenizer_display_prompt();
+        path_display_prompt();
 
         if (fgets(input, sizeof(input), stdin) == NULL)
         {
@@ -83,7 +115,7 @@ int tokenizer_main(void)
 
         if (arg_count > 0)
         {
-            tokenizer_execute_command(args[0], args);
+            path_execute_command(args[0], args);
         }
     }
 

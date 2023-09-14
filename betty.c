@@ -2,14 +2,14 @@
 #include <stdlib.h>
 
 /**
- * main - Entry point
+ * betty_main - Entry point
  *
  * Description: This program calculates the sum of two integers and
  *              prints a message based on the value of the sum.
  *
  * Return: Always 0 (Success)
  */
-int main(void)
+int betty_main(void)
 {
 	int a, b, c;
 
