@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include "shell.h"
 
 #define MAX_INPUT_SIZE 1024
 #define MAX_ARG_COUNT 32

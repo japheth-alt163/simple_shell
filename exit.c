@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "shell.h"
 
 #define MAX_INPUT_LENGTH 100
 
