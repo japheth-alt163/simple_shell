@@ -185,20 +185,7 @@ man chdir, man getcwd
 #advanced
 Simple shell 1.0 +
 
-Handle the commands separator ;
-alex@~$ 
-alex@~$ ls /hbtn ; ls /var
-ls: cannot access /hbtn: No such file or directory
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
-alex@~$ ls /var ; ls /hbtn
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
-ls: cannot access /hbtn: No such file or directory
-alex@~$ ls /var ; ls /hbtn ; ls /var ; ls /var
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
-ls: cannot access /hbtn: No such file or directory
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
-alex@~$
+Handle the commands separator ; alex@$ ls /hbtn ; ls /var ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp alex@$ ls /var ; ls /hbtn ; ls /var ; ls /var backups cache crash lib local lock log mail metrics opt run spool tmp ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp alex@~$
 
 12. && and ||
 #advanced
