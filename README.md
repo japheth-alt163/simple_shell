@@ -190,9 +190,7 @@ man chdir, man getcwd
 Simple shell 1.0 +
 
 Handle the commands separator ;
-alex@~$ ls /var ; ls /var
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
+alex@~$ 
 alex@~$ ls /hbtn ; ls /var
 ls: cannot access /hbtn: No such file or directory
 backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  spool  tmp
