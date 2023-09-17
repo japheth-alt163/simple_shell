@@ -4,6 +4,7 @@
 /*-------constants--------*/
 #define MAX_INPUT_LENGTH 100
 #define MAX_INPUT_SIZE 1024
+#define MAX_ARG_COUNT 32
 
 /*-------includes--------*/
 #include <stdio.h>
