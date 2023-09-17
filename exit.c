@@ -1,6 +1,4 @@
 #include "shell.h"
-
-#define MAX_INPUT_LENGTH 100
 /**
  * exit_main - Simple shell program
  *
