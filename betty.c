@@ -11,24 +11,23 @@
  */
 int betty_main(void)
 {
-	int a, b, c;
+int a, b, c;
 
-	printf("Enter the values of a and b:\n");
-	scanf("%d %d", &a, &b);
-	c = a + b;
-	printf("Sum is %d", c);
-	if (c > 20)
-	{
-		printf("\nSum is greater than 20");
-	}
-	else if (c > 15)
-	{
-		printf("\nSum is greater than 15");
-	}
-	else if (c > 10)
-	{
-		printf("\nSum is less than 10");
-	}
-
-	return (0);
+printf("Enter the values of a and b:\n");
+scanf("%d %d", &a, &b);
+c = a + b;
+printf("Sum is %d", c);
+if (c > 20)
+{
+printf("\nSum is greater than 20");
+}
+else if (c > 15)
+{
+printf("\nSum is greater than 15");
+}
+else if (c > 10)
+{
+printf("\nSum is less than 10");
+}
+return (0);
 }
