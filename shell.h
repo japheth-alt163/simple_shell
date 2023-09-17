@@ -1,6 +1,9 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
+
 /*-------constants--------*/
+#define MAX_INPUT_LENGTH 100
+
 /*-------includes--------*/
 #include <stdio.h>
 #include <stdlib.h>
