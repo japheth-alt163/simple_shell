@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include "shell.h"
-
-#define MAX_INPUT_SIZE 1024
-
 /**
  * display_prompt - to desplay the prompt entered
  */
