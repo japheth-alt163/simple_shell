@@ -1,12 +1,15 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
-
+/*-------constants--------*/
+/*-------includes--------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 
+/*------function prototypes------*/ 
 /* Display the shell prompt. */
 void path_display_prompt(void);
 
