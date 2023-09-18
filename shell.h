@@ -38,5 +38,9 @@ void tokenizer_execute_command(char *command, char *args[]);
 
 /* The main function for the shell program. */
 int tokenizer_main(void);
+/* Function to read a line of input into a buffer */
+char* custom_getline(void);
+
+int getline_main(void);
 
 #endif
