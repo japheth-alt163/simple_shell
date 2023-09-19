@@ -35,8 +35,6 @@ void display_prompt(void);
 /* Execute the given command in a child process. */
 void execute_command(const char *command);
 
-/* Entry point of the simple shell program. */
-int main(void);
 
 /* Display the shell prompt. */
 void tokenizer_display_prompt(void);
