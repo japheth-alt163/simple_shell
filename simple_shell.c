@@ -45,7 +45,7 @@ int main(void)
 	}
 	else
 	{
-		 /* Parent process */
+		/* Parent process */
 		/* Wait for the child to finish */
 		int status;
 
