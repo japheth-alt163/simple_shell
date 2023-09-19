@@ -8,13 +8,12 @@ printf("#cisfun$ ");
 fflush(stdout);
 }
 /**
- * execute_command - Execute the given command in a child process
- *
- * This function takes a command as input and executes it in a child process.
+ * execute_command - Execute the given command in a child process.
+ * Tis function takes a command as input and executes it in a child process.
  * The 'command' parameter should be a null-terminated string containing the
  * command to be executed.
  *
- * @parameter  command The command to execute.
+ * @command: The command to execute.
  */
 void execute_command(const char *command)
 {
