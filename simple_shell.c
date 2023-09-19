@@ -43,7 +43,7 @@ if (wait(&status) == -1)
 perror("wait");
 }
 }
-
+}
 /**
  * main - Entry point of the simple shell program.
  *
