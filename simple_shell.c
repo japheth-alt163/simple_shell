@@ -1,7 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
 #define MAX_INPUT_LENGTH 1024
 
 int main(void) {
-	pid_t pid = fork();
+	 pid_t pid = fork();
     char input[MAX_INPUT_LENGTH];
 
     while (1) {
@@ -20,7 +27,7 @@ int main(void) {
         input[strcspn(input, "\n")] = '\0';
 
         /* Fork a new process */
-
+        
         if (pid == -1) {
             perror("fork");
             exit(EXIT_FAILURE);
@@ -46,3 +53,4 @@ int main(void) {
     }
 
     return 0;
+}
