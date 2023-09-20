@@ -1,4 +1,5 @@
 #include "shell.h"
+#define MAX_INPUT_SIZE 1024
 /**
  * display_prompt - displays the command-line prompt
  */
@@ -8,11 +9,11 @@ printf("#cisfun$ ");
 fflush(stdout);
 }
 /**
- * execute_command - tries to execute external programs
- * based on the command passed
- * @command: the command param
+ * execute_command - tries to execute external programs with
+ * arguments
+ * @command_line: the command line with arguments
  */
-void execute_command(const char *command)
+void execute_command(const char *command_line)
 {
 pid_t child_pid = fork();
 int status;
@@ -24,8 +25,16 @@ exit(EXIT_FAILURE);
 }
 else if (child_pid == 0)
 {
-char *args[] = {NULL, NULL};
-args[0] = strdup(command);
+char *args[MAX_INPUT_SIZE];
+char *token = strtok((char *)command_line, " ");
+int i = 0;
+
+while (token != NULL)
+{
+args[i++] = token;
+token = strtok(NULL, " ");
+}
+args[i] = NULL;
 
 if (execve(args[0], args, NULL) == -1)
 {
