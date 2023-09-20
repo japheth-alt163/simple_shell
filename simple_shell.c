@@ -1,21 +1,17 @@
 #include "shell.h"
-
-#define MAX_INPUT_SIZE 1024
-
 /**
- * display_prompt - displays the comand- line prompt
-*/
+ * display_prompt - displays the command-line prompt
+ */
 void display_prompt(void)
 {
 printf("#cisfun$ ");
 fflush(stdout);
 }
-
 /**
- * execute_command - tries to verify the command passed to it
- * and execute it
+ * execute_command - tries to execute external programs
+ * based on the command passed
  * @command: the command param
-*/
+ */
 void execute_command(const char *command)
 {
 pid_t child_pid = fork();
@@ -28,7 +24,10 @@ exit(EXIT_FAILURE);
 }
 else if (child_pid == 0)
 {
-if (execlp(command, command, NULL) == -1)
+char *args[] = {NULL, NULL};
+args[0] = strdup(command);
+
+if (execve(args[0], args, NULL) == -1)
 {
 perror("./shell");
 exit(EXIT_FAILURE);
