@@ -51,7 +51,6 @@ void path_execute_command(char *command, char *args[])
         return;
     }
 
-    
     if (child_pid == -1)
     {
         perror("fork");
@@ -59,9 +58,10 @@ void path_execute_command(char *command, char *args[])
     else if (child_pid == 0)
     {
         /* This code is executed by the child process */
-        if (execve(command, args) == -1)
+        char *envp[] = {NULL};
+        if (execve(command, args, envp) == -1)
         {
-            perror("execvp");
+            perror("execve");
             exit(EXIT_FAILURE);
         }
     }
@@ -76,7 +76,7 @@ void path_execute_command(char *command, char *args[])
         }
     }
 }
-
+    
 int path_main(void)
 {
     char input[MAX_INPUT_SIZE];
