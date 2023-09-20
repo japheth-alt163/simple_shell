@@ -59,7 +59,7 @@ void path_execute_command(char *command, char *args[])
     else if (child_pid == 0)
     {
         /* This code is executed by the child process */
-        if (execvp(command, args) == -1)
+        if (execve(command, args) == -1)
         {
             perror("execvp");
             exit(EXIT_FAILURE);
