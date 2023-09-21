@@ -1,0 +1,73 @@
+#include "shell.h"
+
+int _strtokmain(void) {
+    char *input = NULL;
+    size_t input_size = 0;
+    ssize_t bytes_read;
+
+    while (1) {
+        if (isatty(STDIN_FILENO)) {
+            printf("($) ");  /* Print a prompt if in interactive mode */
+        }
+
+        /* Read input from the user */
+        bytes_read = getline(&input, &input_size, stdin);
+
+        if (bytes_read == -1) {
+            perror("getline");
+            exit(EXIT_FAILURE);
+        }
+
+        /* Remove newline character */
+        if (input[bytes_read - 1] == '\n') {
+            input[bytes_read - 1] = '\0';
+        }
+
+        /* Check if the user entered "exit" to exit the shell */
+        if (strcmp(input, "exit") == 0) {
+            free(input);
+            exit(EXIT_SUCCESS);
+        }
+
+        /* Tokenize the input into command and arguments */
+        char *command = input;
+        char *arg = NULL;
+        char *saveptr;
+
+        while ((arg = strsep(&command, " ")) != NULL) {
+            /* Execute the command in a child process */
+            pid_t child_pid = fork();
+
+            if (child_pid == -1) {
+                perror("fork");
+                exit(EXIT_FAILURE);
+            }
+
+            if (child_pid == 0) {
+                /* This is the child process */
+                char *args[] = {arg, NULL}; /* Command and NULL-terminated array of arguments */
+
+                /* Execute the command */
+                if (execve(arg, args, NULL) == -1) {
+                    perror("execve");
+                    _exit(EXIT_FAILURE);
+                }
+            } else {
+                /* This is the parent process */
+                int status;
+                waitpid(child_pid, &status, 0);
+
+                if (WIFEXITED(status)) {
+                    /* Child process terminated normally */
+                    printf("Exit status: %d\n", WEXITSTATUS(status));
+                } else {
+                    /* Child process did not terminate normally */
+                    printf("Child process did not terminate normally\n");
+                }
+            }
+        }
+    }
+
+    free(input);
+    return 0;
+}
