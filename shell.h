@@ -1,12 +1,12 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 
-/*-------constants--------*/
+/* Constants */
 #define MAX_INPUT_LENGTH 100
 #define MAX_INPUT_SIZE 1024
 #define MAX_ARG_COUNT 32
 
-/*-------includes--------*/
+/* Includes */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +14,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-/*------function prototypes------*/ 
 /* Display the shell prompt. */
 void path_display_prompt(void);
 
@@ -26,7 +25,8 @@ void path_execute_command(char *command, char *args[]);
 
 /* The main function for the shell program. */
 int path_main(void);
-/* It displays a shell prompt "$ " to indicate that it's ready to accept input */
+
+/* Display the shell prompt. */
 int exit_main(void);
 
 /* Display the shell prompt. */
@@ -34,7 +34,6 @@ void display_prompt(void);
 
 /* Execute the given command in a child process. */
 void execute_command(const char *command);
-
 
 /* Display the shell prompt. */
 void tokenizer_display_prompt(void);
@@ -44,9 +43,11 @@ void tokenizer_execute_command(char *command, char *args[]);
 
 /* The main function for the shell program. */
 int tokenizer_main(void);
+
 /* Function to read a line of input into a buffer */
-char* custom_getline(void);
+char *custom_getline(void);
 
 int getline_main(void);
 
 #endif
+
