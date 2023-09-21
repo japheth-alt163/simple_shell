@@ -54,7 +54,7 @@ perror("wait");
  * main - Entry point of the shell program
  * Return: command_line (True)
 */
-int main(void)
+int shell_main(void)
 {
 char input[MAX_INPUT_SIZE];
 while (1)
