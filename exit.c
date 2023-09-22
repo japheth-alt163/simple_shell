@@ -1,10 +1,10 @@
 #include "shell.h"
 /**
- * main - Simple shell program
+ * exit_main - Simple shell program
  *
  * Return: Always 0
  */
-int main(void)
+int exit_main(void)
 {
 char input[MAX_INPUT_LENGTH];
 
