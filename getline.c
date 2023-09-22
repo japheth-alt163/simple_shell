@@ -9,7 +9,8 @@
 #define MAX_INPUT_SIZE 1024
 
 /* Function to read a line of input into a dynamically allocated buffer */
-char *custom_getline(void) {
+char *custom_getline(void)
+{
     char *buffer = NULL;
     size_t bufsize = 0;
     ssize_t bytesRead;
@@ -17,13 +18,15 @@ char *custom_getline(void) {
     /* Use getline to dynamically allocate memory for the input */
     bytesRead = getline(&buffer, &bufsize, stdin);
 
-    if (bytesRead == -1) {
+    if (bytesRead == -1)
+    {
         /* Error or end of input */
         free(buffer);
         return NULL;
     }
 
-    if (bytesRead > 0 && buffer[bytesRead - 1] == '\n') {
+    if (bytesRead > 0 && buffer[bytesRead - 1] == '\n')
+    {
         /* Remove newline character if present */
         buffer[bytesRead - 1] = '\0';
     }
@@ -31,17 +34,21 @@ char *custom_getline(void) {
     return buffer;
 }
 
-int getline_main(void) {
+/* Main function for getline */
+int getline_main(void)
+{
     char *input;
 
-    while (1) {
+    while (1)
+    {
         /* Print a prompt */
         printf("Shell > ");
 
         /* Read input using custom_getline */
         input = custom_getline();
 
-        if (input == NULL) {
+        if (input == NULL)
+        {
             /* No more input, exit the shell */
             break;
         }
@@ -56,6 +63,5 @@ int getline_main(void) {
         /* and handle memory management accordingly. */
     }
 
-    return 0;
+    return (0);
 }
-
