@@ -1,219 +1,139 @@
-0x16. C - Simple Shell
+![unix shell](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2019%2F04%2FWhat-is-Unix-shell.jpg&f=1&nofb=1&ipt=fc9d05d9608d914535bc66f21f8ba815f4cf093922812c939e02f0b1d4308914&ipo=images)
+# Shell Project
 
-Output
-Unless specified otherwise, your program must have the exact same output as sh (/bin/sh) as well as the exact same error output.
-The only difference is when you print an error, the name of the program must be equivalent to your argv[0] (See below)
-Example of error with sh:
+This Unix-like shell implementation is written in C, providing a basic command-line interface for interacting with your operating system. This README provides comprehensive technical information about the project. This was a team work project done by: 
+Japheth Baraka and Clinton Otieno.
 
-$ echo "qwerty" | /bin/sh
-/bin/sh: 1: qwerty: not found
-$ echo "qwerty" | /bin/../bin/sh
-/bin/../bin/sh: 1: qwerty: not found
-$
-Same error with your program hsh:
+## Table of Contents
 
-$ echo "qwerty" | ./hsh
-./hsh: 1: qwerty: not found
-$ echo "qwerty" | ./././hsh
-./././hsh: 1: qwerty: not found
-$
+- [Project Overview](#project-overview)
+- [Motivation](#motivation)
+- [Demo](#demo)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage Examples](#usage-examples)
+- [Error Handling](#error-handling)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [API Documentation](#api-documentation)
+- [Known Issues and Limitations](#known-issues-and-limitations)
+- [Release Notes](#release-notes)
+- [FAQ](#faq)
+- [References and Credits](#references-and-credits)
+- [Contact Information](#contact-information)
+- [License](#license)
 
-List of allowed functions and system calls
-access (man 2 access)
-chdir (man 2 chdir)
-close (man 2 close)
-closedir (man 3 closedir)
-execve (man 2 execve)
-exit (man 3 exit)
-_exit (man 2 _exit)
-fflush (man 3 fflush)
-fork (man 2 fork)
-free (man 3 free)
-getcwd (man 3 getcwd)
-getline (man 3 getline)
-getpid (man 2 getpid)
-isatty (man 3 isatty)
-kill (man 2 kill)
-malloc (man 3 malloc)
-open (man 2 open)
-opendir (man 3 opendir)
-perror (man 3 perror)
-read (man 2 read)
-readdir (man 3 readdir)
-signal (man 2 signal)
-stat (__xstat) (man 2 stat)
-lstat (__lxstat) (man 2 lstat)
-fstat (__fxstat) (man 2 fstat)
-strtok (man 3 strtok)
-wait (man 2 wait)
-waitpid (man 2 waitpid)
-wait3 (man 2 wait3)
-wait4 (man 2 wait4)
-write (man 2 write)
+## Project Overview
 
+This shell project is an implementation of a Unix-like shell in C. It provides a command-line interface to interact with the operating system, execute both built-in and external commands, handle signals, and more. It serves as a fundamental tool for system administration and scripting tasks.
 
-Compilation
-Your shell will be compiled this way:
+## Motivation
 
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+The motivation behind this project was to create a lightweight yet functional shell that offers flexibility, ease of use, and the ability to understand and execute a wide range of commands. We aimed to build a shell that would be both educational for aspiring developers and practical for everyday use.
 
-Testing
-Your shell should work like this in interactive mode:
+## Prerequisites
 
-$ ./hsh
-($) /bin/ls
-hsh main.c shell.c
-($)
-($) exit
-$
-But also in non-interactive mode:
+To compile and use this shell, you need the following prerequisites:
 
-$ echo "/bin/ls" | ./hsh
-hsh main.c shell.c test_ls_2
-$
-$ cat test_ls_2
-/bin/ls
-/bin/ls
-$
-$ cat test_ls_2 | ./hsh
-hsh main.c shell.c test_ls_2
-hsh main.c shell.c test_ls_2
+- A Unix-like operating system (Linux, macOS, or similar).
+- GCC (GNU Compiler Collection) installed.
+- Basic knowledge of using the command line.
 
-0. Betty would be proud
-mandatory
-Write a beautiful code that passes the Betty checks
+## Installation
 
-1. Simple shell 0.1
-mandatory
-Write a UNIX command line interpreter.
+To compile the shell, follow these steps:
 
-Usage: simple_shell
-Your Shell should:
+1. Clone this repository to your local machine:
 
-Display a prompt and wait for the user to type a command. A command line always ends with a new line.
-The prompt is displayed again each time a command has been executed.
-The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
-The command lines are made only of one word. No arguments will be passed to programs.
-If an executable cannot be found, print an error message and display the prompt again.
-Handle errors.
-You have to handle the “end of file” condition (Ctrl+D)
-You don’t have to:
+   ```bash
+   git clone <repository_url>
+   cd shell-project
+   ```
 
-use the PATH
-implement built-ins
-handle special characters : ", ', `, \, *, &, #
-be able to move the cursor
-handle commands with arguments
-execve will be the core part of your Shell, don’t forget to pass the environ to it…
+2. Compile the source files using GCC:
 
-$ echo "/bin/ls" | ./shell
-barbie_j       env-main.c  exec.c  fork.c  pid.c  ppid.c    prompt   prompt.c  shell.c  stat.c         wait
-env-environ.c  exec    fork    mypid   ppid   printenv  promptc  shell     stat test_scripting.sh  wait.c
-#cisfun$ julien@ubuntu:~/shell$
+   ```bash
+   gcc -o myshell shell_main.c primary_helper_functions.c secondary_helper_functions.c other_helper_functions.c sys_function_handler.c
+   ```
 
-2. Simple shell 0.2
-mandatory
-Simple shell 0.1 +
+## Configuration
 
-Handle command lines with arguments
+The shell can be configured using environment variables and command-line options. Here are some configuration options:
 
-Simple shell 0.2 +
+- **Environment Variables**: You can modify the behavior of the shell by setting environment variables. For example, you can set `SHELL_PROMPT` to customize the shell prompt.
 
-Handle the PATH
-fork must not be called if the command doesn’t exist
+- **Command-line Options**: You can pass command-line options to the shell executable. For example, you can use `-v` for verbose mode or `-d` for debugging mode.
 
-Simple shell 0.3 +
+## Usage Examples
 
-Implement the exit built-in, that exits the shell
-Usage: exit
-You don’t have to handle any argument to the built-in exit
+### Built-in Commands
 
-Simple shell 0.4 +
+The shell supports various built-in commands. Here are some examples:
 
-Implement the env built-in, that prints the current environment
-julien@ubuntu:~/shell$ 
+- `env`: Lists the environment variables.
+- `exit [status]`: Exits the shell with an optional status code.
+- `cd [directory]`: Changes the current directory.
+- Add more built-in commands as needed by modifying the `sys_function_handler.c` file.
 
-Simple shell 0.1 +
+### External Commands
 
-Write your own getline function
-Use a buffer to read many chars at once and call the least possible the read system call
-You will need to use static variables
-You are not allowed to use getline
-You don’t have to:
+The shell can execute external commands as well. Simply enter the command you want to run, and the shell will attempt to execute it. If the command is not found in the current directory, the shell will search for it in the directories listed in the `PATH` environment variable.
 
-be able to move the cursor
+```bash
+ls -l
+```
 
-Simple shell 0.2 +
+## Error Handling
 
-You are not allowed to use strtok
+The shell has robust error handling. It reports errors, including syntax errors, command not found errors, and more. It also returns appropriate exit status codes for use in scripts.
 
-Simple shell 0.4 +
+## Testing
 
-handle arguments for the built-in exit
-Usage: exit status, where status is an integer used to exit the shell
-julien@ubuntu:~/shell$ 
+The project includes a testing framework. To run tests, use the following command:
 
-9. setenv, unsetenv
-#advanced
-Simple shell 1.0 +
+```bash
+./run_tests.sh
+```
 
-Implement the setenv and unsetenv builtin commands
+This script will execute various test cases to ensure the correctness of the shell.
 
-setenv
-Initialize a new environment variable, or modify an existing one
-Command syntax: setenv VARIABLE VALUE
-Should print something on stderr on failure
-unsetenv
-Remove an environment variable
-Command syntax: unsetenv VARIABLE
-Should print something on stderr on failur
+## Contributing
 
-10. cd
-#advanced
-Simple shell 1.0 +
+Contributions to this project are welcome! To contribute:
 
-Implement the builtin command cd:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and test them thoroughly.
+4. Commit your changes and push them to your fork.
+5. Create a pull request to the original repository.
 
-Changes the current directory of the process.
-Command syntax: cd [DIRECTORY]
-If no argument is given to cd the command must be interpreted like cd $HOME
-You have to handle the command cd -
-You have to update the environment variable PWD when you change directory
-man chdir, man getcwd
+Please ensure your code follows the project's coding style and conventions.
 
-11. ;
-#advanced
-Simple shell 1.0 +
+## API Documentation
 
-Handle the commands separator ; alex@$ ls /hbtn ; ls /var ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp alex@$ ls /var ; ls /hbtn ; ls /var ; ls /var backups cache crash lib local lock log mail metrics opt run spool tmp ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp alex@~$
+This project provides a library or API for others to use. Here's a brief overview of the API:
 
-12. && and ||
-#advanced
-Simple shell 1.0 +
+### `int custom_printf(char *str, int strm)`
 
-Handle the && and || shell logical operators alex@$ ls /var && ls /var backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp alex@$ ls /hbtn && ls /var ls: cannot access /hbtn: No such file or directory alex@$ ls /var && ls /var && ls /var && ls /hbtn backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp ls: cannot access /hbtn: No such file or directory alex@$ ls /var && ls /var && ls /var && ls /hbtn && ls /hbtn backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp backups cache crash lib local lock log mail metrics opt run spool tmp ls: cannot access /hbtn: No such file or directory alex@$ alex@$ ls /var || ls /var backups cache crash lib local lock log mail metrics opt run spool tmp alex@$ ls /hbtn || ls /var ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp alex@$ ls /hbtn || ls /hbtn || ls /hbtn || ls /var ls: cannot access /hbtn: No such file or directory ls: cannot access /hbtn: No such file or directory ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp alex@$ ls /hbtn || ls /hbtn || ls /hbtn || ls /var || ls /var ls: cannot access /hbtn: No such file or directory ls: cannot access /hbtn: No such file or directory ls: cannot access /hbtn: No such file or directory backups cache crash lib local lock log mail metrics opt run spool tmp alex@$
+Prints a string to the specified stream.
 
-13. alias
-#advanced
-Simple shell 1.0 +
+```c
+#include "shell.h"
 
-Implement the alias builtin command
-Usage: alias [name[='value'] ...]
-alias: Prints a list of all aliases, one per line, in the form name='value'
-alias name [name2 ...]: Prints the aliases name, name2, etc 1 per line, in the form name='value'
-alias name='value' [...]: Defines an alias for each name whose value is given. If name is already an alias, replaces its value with value
+int main() {
+    custom_printf("Hello, world!\n", STDOUT_FILENO);
+    return 0;
+}
+```
 
-14. Variables
-#advanced
-Simple shell 1.0 +
+### Contact Information
 
-Handle variables replacement
-Handle the $? variable
-Handle the $$ variable
-$ ./hsh
-$ ls /var
-backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  snap  spool  tmp
-$ echo $PATH
-/home/julien/bin:/home/julien/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-$ exit 
-$ 
+If you have any questions, feedback, or need support, please contact:
+
+- [Japheth Baraka](github.com/japheth-alt163)
+- [Clinton Otieno](github.com/kc-clintone)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
